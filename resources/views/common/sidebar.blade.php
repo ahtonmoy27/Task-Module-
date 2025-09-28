@@ -1,4 +1,4 @@
-<aside class="tt-sidebar bg-dark" id="sidebar">
+{{-- <aside class="tt-sidebar bg-dark" id="sidebar">
     <div class="tt-brand">
           <!-- Visit Product List Button -->
               <a href="{{ route('home.index') }}" target="_blank" class="btn btn-sm btn-light text-primary">
@@ -43,7 +43,7 @@
                     <li class="side-nav-item nav-item">
                         <a href="{{ route('products.index') }}" class="side-nav-link">
                             <span class="tt-nav-link-icon">
-                                <span data-feather="package" class="icon-14"></span> {{-- Products --}}
+                                <span data-feather="package" class="icon-14"></span> 
                             </span>
                             <span class="tt-nav-link-text"> Products </span>
                         </a>
@@ -53,4 +53,4 @@
             </div>
         </nav>
     </div>
-</aside>
+</aside> --}}
