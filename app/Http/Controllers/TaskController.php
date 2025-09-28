@@ -1,0 +1,94 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Requests\TaskRequest;
+use App\Services\TaskService;
+use Illuminate\Http\JsonResponse;
+
+class TaskController extends Controller
+{
+    protected $taskService;
+
+    public function __construct(TaskService $taskService)
+    {
+        $this->taskService = $taskService;
+    }
+
+    // public function index(){
+    //     return view('task');
+    // }
+    public function index()
+    {
+        // Just return the view
+            $tasks = $this->taskService->getAll();
+
+        return view('task', compact('tasks'));
+    }
+
+    public function getTasks()
+    {
+        $tasks = $this->taskService->getAll(); // Fetch all tasks from DB
+        return response()->json([
+            'status' => true,
+            'data' => $tasks
+        ]);
+    }
+
+    // public function store(TaskRequest $request): JsonResponse
+    // {
+    //     try {
+    //         $this->taskService->storeMultiple($request->validated()['tasks']);
+    //         return response()->json([
+    //             'status' => true,
+    //             'message' => 'Tasks created successfully'
+    //         ], 201);
+    //     } catch (\Exception $e) {
+    //         return response()->json([
+    //             'status' => false,
+    //             'message' => 'Something went wrong',
+    //             'error' => $e->getMessage()
+    //         ], 500);
+    //     }
+    // }
+    // public function store(TaskRequest $request): JsonResponse
+    // {
+    //     try {
+    //         // Save all tasks
+    //         $this->taskService->storeMultiple($request->validated()['tasks']);
+
+    //         // Get all tasks after save (for showing in table)
+    //         $tasks = $this->taskService->getAll();
+    //         return response()->json([
+    //             'status' => true,
+    //             'message' => 'Tasks created successfully',
+    //             'data' => $tasks
+    //         ], 201);
+    //     } catch (\Exception $e) {
+    //         return response()->json([
+    //             'status' => false,
+    //             'message' => 'Something went wrong',
+    //             'error' => $e->getMessage()
+    //         ], 500);
+    //     }
+    // }
+
+    public function store(TaskRequest $request): JsonResponse
+    {
+        try {
+            $this->taskService->storeMultiple($request->validated()['tasks']);
+            $tasks = $this->taskService->getAll();
+            return response()->json([
+                'status' => true,
+                'data' => $tasks,
+                'message' => 'Tasks saved successfully'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Error saving tasks',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+}
