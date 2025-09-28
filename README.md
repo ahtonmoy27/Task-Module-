@@ -17,9 +17,6 @@ install dependencies
 ```
 composer install
 ````
-install js dependencies
-```
-````
 create .env file
 ```
 cp (unix) or copy (Windows) .env.example .env
@@ -29,14 +26,11 @@ generate env key
 php artisan key:generate
 ```
 ```
-php artisan migrate:fresh 
+php artisan migrate
 ```
 start server
 ```
 php artisan serve
-```
-credentails
-```
 ```
 # That's all 🎊🎉 
 
