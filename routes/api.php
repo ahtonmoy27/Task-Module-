@@ -22,13 +22,19 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // Route::post('/login', [AuthController::class, 'login'])->name('login');
-Route::post('/tasks', [TaskController::class, 'store']);
+// Route::post('/tasks', [TaskController::class, 'store']);
 
-Route::get('/tasks', [TaskController::class, 'index']);
-Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');
-Route::get('/api/tasks', [TaskController::class, 'getTasks']);
-Route::delete('/tasks/{id}', [TaskController::class, 'destroy'])->name('tasks.delete');
-Route::get('/tasks', [TaskController::class, 'getTasks']);
+// Route::get('/tasks', [TaskController::class, 'index']);
+// Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');
+// Route::get('/api/tasks', [TaskController::class, 'getTasks']);
+// Route::delete('/tasks/{id}', [TaskController::class, 'destroy'])->name('tasks.delete');
+// Route::get('/tasks', [TaskController::class, 'getTasks']);
+// Route::put('/tasks/{id}', [TaskController::class, 'update'])->name('tasks.update');
+
+Route::get('/tasks', [TaskController::class, 'getTasks']); // fetch all tasks
+Route::post('/tasks', [TaskController::class, 'store']); // create tasks
+Route::put('/tasks/{id}', [TaskController::class, 'update']); // update single task
+Route::delete('/tasks/{id}', [TaskController::class, 'destroy']); // delete task
 
 
 // product-categories 

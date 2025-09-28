@@ -92,7 +92,25 @@ class TaskController extends Controller
             ], 500);
         }
     }
-
+    public function update(\Illuminate\Http\Request $request, $id)
+    {
+        try {
+            $task = Task::findOrFail($id);
+            $task->title = $request->input('title');
+            $task->description = $request->input('description');
+            $task->save();
+            return response()->json([
+                'status' => true,
+                'message' => 'Task updated successfully'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Error updating task',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
     public function destroy($id)
     {
         try {
