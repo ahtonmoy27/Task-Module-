@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\TaskRequest;
+use App\Models\Task;
 use App\Services\TaskService;
 use Illuminate\Http\JsonResponse;
+use App\Http\Requests\TaskRequest;
 
 class TaskController extends Controller
 {
@@ -21,7 +22,7 @@ class TaskController extends Controller
     public function index()
     {
         // Just return the view
-            $tasks = $this->taskService->getAll();
+        $tasks = $this->taskService->getAll();
 
         return view('task', compact('tasks'));
     }
@@ -87,6 +88,24 @@ class TaskController extends Controller
             return response()->json([
                 'status' => false,
                 'message' => 'Error saving tasks',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $task = Task::findOrFail($id);
+            $task->delete();
+            return response()->json([
+                'status' => true,
+                'message' => 'Task deleted successfully'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Error deleting task',
                 'error' => $e->getMessage()
             ], 500);
         }
